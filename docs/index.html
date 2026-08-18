@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ChronoFuseGS</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <style>
+    .tl-image-frame {
+      width: 100%;
+      aspect-ratio: 1600 / 940;
+      background-repeat: no-repeat;
+      background-color: #f0f0f0;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+    .tl-label-row {
+      font-style: italic;
+      font-size: 0.85rem;
+      padding-left: 4px;
+      margin-bottom: 4px;
+      color: #444;
+    }
+    .tl-controls {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+    }
+    .tl-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      width: 100%;
+      user-select: none;
+    }
+    .tl-bar {
+      width: 100%;
+      height: 4px;
+      background-color: #ddd;
+      margin-bottom: 6px;
+      border-radius: 2px;
+      transition: background-color 0.2s;
+    }
+    .tl-bar.active {
+      background-color: #333;
+    }
+    .tl-label-group {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 6px;
+    }
+    .tl-icon {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      background-color: white;
+      color: #bbb;
+      font-size: 14px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .tl-icon.selected {
+      border-color: #333;
+      color: #333;
+    }
+    .tl-text {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+
+<!-- Hero / Title -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+
+          <h1 class="title is-1 publication-title">
+            ChronoFuseGS: Multi-Temporal Gaussian Fusion with Per-Splat Persistence and Change Visualization
+          </h1>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              Tobias Batik,
+            </span>
+            <span class="author-block">
+              Diana Marin,
+            </span>
+            <span class="author-block">
+              Peter Kán,
+            </span>
+            <span class="author-block">
+              Hannes Kaufmann
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><a href="https://www.vr.tuwien.ac.at/" target="_blank">TU Wien, Austria</a></span>
+          </div>
+
+          <!-- Links -->
+          <div class="column has-text-centered" style="margin-top: 1rem;">
+            <div class="publication-links">
+
+              <!-- Paper button — uncomment when link is available
+              <span class="link-block">
+                <a href="TODO_paper_link" class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              -->
+
+              <span class="link-block">
+                <a href="https://github.com/TobiasBat/ChronoFuseGS" class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="https://github.com/TobiasBat/ChronoFuseGS/tree/main/NWM_dataset" class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                    <i class="far fa-images"></i>
+                  </span>
+                  <span>Dataset</span>
+                </a>
+              </span>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Teaser Figure -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="publication-teaser has-text-centered">
+      <img src="static/images/teaser.png" alt="ChronoFuseGS teaser figure."
+           style="width:100%;"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <div style="display:none; background:#f5f5f5; border-radius:10px; padding:3rem; color:#888;">
+        <p><em>Teaser figure — place <code>static/images/teaser.png</code> here.</em></p>
+      </div>
+    </div>
+    <p class="subtitle has-text-centered" style="margin-top:1.5rem;">
+      ChronoFuseGS incrementally fuses individually trained Gaussian Splatting models and visualizes
+      changes at the Gaussian primitive level.
+      <b>Left:</b> Individual timesteps.
+      <b>Center:</b> Change highlighting between the first two timesteps.
+      <b>Right:</b> After fusion of a third timestep, changes across all three timesteps are highlighted.
+      Colors indicate at which timesteps parts of the scene changed, while persistent parts retain their appearance.
+    </p>
+  </div>
+</section>
+
+<!-- Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Reconstructing environments where parts of the scene change between captured image sets
+            poses a challenge for 3D scene reconstruction. We present <strong>ChronoFuseGS</strong>, a
+            multi-temporal Gaussian Splatting approach that addresses this issue by taking multiple
+            separately trained Gaussian Splatting models, each representing a distinct timestep and
+            partially overlapping in geographic coverage, and merging them into a single combined model.
+            By allowing Gaussians from one timestep to contribute to the reconstruction at other
+            timesteps, our approach leverages data across all captured timesteps to refine persistent
+            parts of the scene.
+          </p>
+          <p>
+            The model supports incremental extension, allowing new timesteps to be added while
+            preserving the existing merged reconstruction. It encodes, for each Gaussian primitive,
+            at which timesteps it contributes to the reconstruction. To support visual exploration
+            of the reconstructed scene, we present a change-aware visualization approach that
+            highlights the parts of the scene that have changed across a user-defined time selection,
+            while preserving the color of persistent parts. Since the persistence encoding operates
+            at the Gaussian primitive level, changes are visualized at sub-object granularity rather
+            than being limited to object-level changes.
+          </p>
+          <p>
+            We evaluate our approach on a real-world outdoor dataset of a flood management area,
+            captured over 6.5 months across eight recording days and covering seasonal vegetation
+            changes, snow cover, and flooding events, which we make publicly available. Our results
+            demonstrate that the combined model consistently outperforms individually trained
+            single-timestep models in novel-view synthesis quality, recovers structural details
+            absent in the individual reconstructions, and reliably highlights changes in fine details
+            and sub-parts of objects and natural structures.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Video -->
+<section class="section" style="padding-bottom: 0; padding-top: 5rem;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column">
+        <div style="position: relative; border-radius: 10px; overflow: hidden; background: #000;">
+          <video id="hero-video" autoplay muted playsinline loop
+                 style="width: 100%; display: block;">
+            <source src="static/videos/ChronoFuseGS_PG_sub_1.mov" type="video/mp4">
+          </video>
+          <div id="video-progress"
+               style="position:absolute; bottom:0; left:0; height:3px;
+                      width:0%; background:rgba(255,255,255,0.7);
+                      transition:width 0.25s linear; pointer-events:none;"></div>
+          <button onclick="var v=document.getElementById('hero-video');v.currentTime=0;v.play();"
+                  style="position:absolute; bottom:12px; right:12px;
+                         background:rgba(0,0,0,0.5); color:white; border:none; border-radius:6px;
+                         width:34px; height:34px; font-size:18px; cursor:pointer; padding:0;">↺</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pipeline -->
+<section class="section" style="padding-top: 5rem;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Method</h2>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="publication-teaser has-text-centered">
+          <img src="static/images/pipeline_figure.png" alt="ChronoFuseGS pipeline diagram."
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+          <div style="display:none; background:#f5f5f5; border-radius:10px; padding:3rem; color:#888;">
+            <p><em>Pipeline figure — place <code>static/images/pipeline_figure.png</code> here.</em></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered" style="margin-top:1.5rem;">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <p>
+            ChronoFuseGS takes multiple individually pre-trained Gaussian Splatting models — each
+            covering a distinct timestep — and merges them into a single combined model. A
+            <strong>cross-timestep initialization</strong> step then optimizes, for each Gaussian, a
+            persistence value indicating whether it is visible at other timesteps, along with a light
+            compensation term to account for illumination differences. A final
+            <strong>combined refinement</strong> jointly trains all Gaussians against all timestep
+            image sets, improving reconstruction quality beyond what any individual model achieves
+            alone. New timesteps can be added <strong>incrementally</strong> without reprocessing
+            previously merged data. The resulting per-Gaussian persistence encoding directly drives a
+            <strong>change-aware visualization</strong> that highlights where and when parts of the
+            scene changed, while persistent areas retain their true appearance.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Results -->
+<section class="section" id="results">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <h2 class="title is-3">Results</h2>
+      </div>
+    </div>
+
+    <!-- Static overview row -->
+    <div class="columns is-mobile is-variable is-2" style="margin-bottom: 0.5rem;">
+      <div class="column">
+        <img src="static/images/nwm_natural_t0.jpg" alt="Combined model true color T0" style="width:100%; border-radius:8px;">
+      </div>
+      <div class="column">
+        <img src="static/images/nwm_natural_t1.jpg" alt="Combined model true color T1" style="width:100%; border-radius:8px;">
+      </div>
+      <div class="column">
+        <img src="static/images/nwm_natural_change_highlight.jpg" alt="Change highlighting" style="width:100%; border-radius:8px;">
+      </div>
+    </div>
+    <div class="columns is-centered" style="margin-bottom: 3rem;">
+      <div class="column is-four-fifths">
+        <p class="is-size-7 has-text-grey has-text-centered">
+          <strong>Left</strong> and <strong>center:</strong> Combined refined model rendered in true color at T0 and T1.
+          <strong>Right:</strong> Change highlighting between T0 and T1. Persistent parts of the scene — such as
+          the dam structure and rocks — are rendered in grayscale, while changed parts
+          are colored to indicate at which timestep they are present.
+        </p>
+      </div>
+    </div>
+
+    <!-- Scene tabs -->
+    <div class="tabs is-centered" id="scene-tabs">
+      <ul>
+        <li class="is-active" data-scene="flood-2" data-n="3"><a>Flood</a></li>
+        <li data-scene="flood-1" data-n="3"><a>Construction Site</a></li>
+        <li data-scene="vase" data-n="4"><a>Baluster Vase</a></li>
+      </ul>
+    </div>
+
+    <!-- Two viewers side by side -->
+    <div class="columns is-variable is-5">
+      <div class="column">
+        <p class="has-text-centered mb-3">True Color</p>
+        <div class="timeline-widget"
+             data-mode="single" data-n="3"
+             data-flood1="static/images/flood-1/flooding_I120_compare.jpg"
+             data-flood2="static/images/flood-2/flooding_I65_compare.jpg"
+             data-vase="static/images/vase/vase_comapre_overview.jpg"
+             data-vase-n="4">
+          <div class="tl-image-frame"></div>
+          <div class="tl-label-row">Timesteps</div>
+          <div class="tl-controls"></div>
+        </div>
+      </div>
+      <div class="column">
+        <p class="has-text-centered mb-3">Change Highlighting</p>
+        <div class="timeline-widget"
+             data-mode="multi" data-n="3"
+             data-flood1="static/images/flood-1/flooding_I120_bw.jpg"
+             data-flood2="static/images/flood-2/flooding_I65_bw.jpg"
+             data-vase="static/images/vase/vase_bw_overview.jpg"
+             data-vase-n="4">
+          <div class="tl-image-frame"></div>
+          <div class="tl-label-row">Timesteps</div>
+          <div class="tl-controls"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered" style="margin-top:0.75rem;">
+      <div class="column is-four-fifths">
+        <p class="is-size-7 has-text-grey has-text-centered">
+          <strong>Left:</strong> True color rendering of the combined refined model for the selected timestep.
+          <strong>Right:</strong> Change highlighting across the selected timesteps;
+          persistent parts are rendered in grayscale, and colors indicate
+          at which timesteps parts of the scene are present.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BibTeX -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre class="bibtex-content"><code>@article{batik2026chronofusegs,
+  title  = {{ChronoFuseGS}: Multi-Temporal {Gaussian} Fusion with
+            Per-Splat Persistence and Change Visualization},
+  author = {Batik, Tobias and Marin, Diana and K{\'{a}}n, Peter
+            and Kaufmann, Hannes},
+  year   = {2026},
+}</code></pre>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            Website template adapted from
+            <a href="https://nerfies.github.io" target="_blank">Nerfies</a>.
+            Licensed under a
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">
+              Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  <script src="static/js/timeline.js"></script>
+  <script>
+    (function () {
+      var v = document.getElementById('hero-video');
+      var bar = document.getElementById('video-progress');
+
+      v.removeAttribute('autoplay');
+
+      v.addEventListener('timeupdate', function () {
+        if (v.duration) bar.style.width = (v.currentTime / v.duration * 100) + '%';
+      });
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            v.play();
+          } else {
+            v.pause();
+          }
+        });
+      }, { threshold: 0 });
+
+      observer.observe(v);
+    })();
+  </script>
+</body>
+</html>

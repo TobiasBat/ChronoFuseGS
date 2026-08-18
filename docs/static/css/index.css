@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+:root {
+  --accent: hsl(307, 55%, 65%);
+}
+
+body {
+  font-family: "Inter", sans-serif;
+}
+
+.publication-title {
+  font-family: "Inter", sans-serif;
+}
+
+.publication-authors {
+  font-family: "Inter", sans-serif;
+}
+
+.publication-venue {
+  font-family: "Inter", sans-serif;
+}
+
+.author-block a {
+  color: var(--accent);
+}
+
+.author-block a:hover {
+  text-decoration: underline;
+}
+
+.link-block a {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.publication-banner img {
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.publication-teaser img {
+  border-radius: 0px;
+}
+
+footer .icon-link {
+  font-size: 25px;
+}
+
+footer .icon-link.is-large {
+  font-size: 25px;
+}
+
+.tabs ul {
+  border-bottom-color: #dbdbdb !important;
+}
+
+.tabs li.is-active a {
+  border-bottom-color: #363636 !important;
+  border-bottom-width: 3px !important;
+  color: #363636 !important;
+  font-weight: 700 !important;
+}
+
+.bibtex-content {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding: 1.5rem;
+  text-align: left;
+  font-size: 0.85rem;
+}
+
+.publication-title {
+  letter-spacing: -0.05rem;
+  padding-top: 25px;
+}
+
+@media (max-width: 768px) {
+  .publication-title {
+    font-size: 1.75rem !important;
+    letter-spacing: normal;
+    padding-top: 13px;
+  }
+}
+
+h2 {
+  font-size: 2rem;
+  letter-spacing: -0.03rem;
+  text-align: center;
+}
