@@ -21,7 +21,6 @@ The dataset is distributed as individual zip archives. Three types of archives a
 - **`nwm_<subset>.zip`** — Multi-temporal model trained and fused with ChronoFuseGS for a given subset (`complete`, `autumn`, `flooding`, `snow`, `car`).
 
 
-
 ## Individual Timesteps
 
 We split the data into 11 timesteps in total. The two detail timesteps recorded at 2026-01-10 (`2026-01-10_detail_1`, `2026-01-10_detail_2`) are only included in the Snow subset. The list of timesteps is shown below:
@@ -53,6 +52,63 @@ We grouped these individual timesteps into the multi-timestep datasets of NWM, i
 | Flooding |      3 |    3 | `2025-12-04_2`, `2025-12-08`, `2026-03-28`                   |               629 |
 | Snow     |      3 |    1 | `2026-01-10`, `2026-01-10_detail_1`,<br /> `2026-01-10_detail_2` |               608 |
 | Car      |      3 |    1 | `2025-12-04_1`, `2025-12-04_2`, `2025-12-08`                 |               705 |
+
+## File Structure
+
+**`nwm_<YYYY-MM-DD>.zip`** — Contains the extracted drone video frames and camera metadata for a single recording day.
+
+```
+nwm_<YYYY-MM-DD>/
+└── data/
+    ├── input/              # extracted drone video frames
+    │   ├── <image>.png
+    │   └── ...
+    └── camera_info.json
+```
+
+**`nwm_pre_trained_timestep_<YYYY-MM-DD>.zip`** — Extends the individual timestep archive with a COLMAP sparse reconstruction, a pretrained 3DGS model, and PuP-3DGS compressed models.
+
+```
+nwm_pre_trained_timestep_<YYYY-MM-DD>/
+├── data/
+│   ├── images/             # images registered by COLMAP
+│   ├── input/              # original extracted frames
+│   ├── sparse/             # COLMAP sparse reconstruction
+│   └── camera_info.json
+├── output/
+│   └── point_cloud/
+│       ├── init_0/         # initial 3DGS model
+│       └── iteration_30000/   # model after 30,000 refinement iterations
+│           ├── point_cloud.ply
+│           ├── activation.ply
+│           └── camera.json
+└── pup/                    # PuP-3DGS compressed models
+```
+
+**`nwm_<subset>.zip`** — Contains the ChronoFuseGS multi-temporal model trained and fused for a given subset. The structure mirrors the pretrained timestep archives without the `pup/` folder.
+
+```
+nwm_<subset>/
+├── data/
+│   ├── images/
+│   ├── input/
+│   ├── sparse/
+│   └── camera_info.json
+└── output/
+    └── point_cloud/
+        ├── init_0/
+        └── iteration_30000/
+            ├── point_cloud.ply
+            ├── activation.ply
+            └── camera.json
+```
+
+The key output files are:
+
+- **`point_cloud.ply`** — 3D Gaussian attributes (position, color, covariance, opacity, etc.) without any time-specific information.
+- **`activation.ply`** — Per-Gaussian, timestep-dependent data: the light compensation vector and opacity manipulation vector.
+- **`camera.json`** — Camera parameters for the trained model.
+- **`camera_info.json`** — Per-image metadata including GPS coordinates, altitude, and train/test split. See the [Camera Positions](#camera-positions) section for a full description.
 
 ## Camera Positions
 
