@@ -8,7 +8,7 @@ The dataset spans **8 recording days over 6.5 months** (August 2025 – March 20
 
 
 
-[![Download](https://img.shields.io/badge/Download-Images_%26_Pretrained_Models-blue?style=for-the-badge)](https://researchdata.tuwien.ac.at/records/bphp1-hbb20)
+[![Download](https://img.shields.io/badge/Download-Images_%26_Pretrained_Models-blue?style=for-the-badge)](https://researchdata.tuwien.ac.at/records/bphp1-hbb20?preview=1&token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjNlZDQ1MjU0LTVkNTgtNDhiMC1iZWNiLTUwZWI3YTBlOGEwZSIsImRhdGEiOnt9LCJyYW5kb20iOiIxMDc1MjkwMjllZDZkYTI3MTk4MWEzM2NmZTUyNjEyMSJ9.pdNR3yUrDWgqszzUXQz2TRMaw3jeviigoN0QLYMOLySXrHPnM4ABcjcu4anHbH4d6LHOx3rdGeN7yxaiKi1lPg)
 
 
 
