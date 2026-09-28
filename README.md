@@ -4,7 +4,7 @@
 
 **Tobias Batik, Diana Marin, Peter Kán, Hannes Kaufmann — [TU Wien, Austria](https://www.vr.tuwien.ac.at/)**
 
-[[Project Page]](https://tobiasbat.github.io/ChronoFuseGS/)
+[[Paper]](https://arxiv.org/pdf/2609.31339) [[Project Page]](https://tobiasbat.github.io/ChronoFuseGS/)
 
 
 ChronoFuseGS fuses individually trained Gaussian Splatting models across multiple timesteps into a single combined model. It encodes per-Gaussian persistence — whether each Gaussian contributes to the reconstruction at other timesteps — and uses this to highlight scene changes at sub-object granularity while preserving the appearance of persistent parts.
@@ -106,4 +106,21 @@ The scene can be navigated with `W`, `A`, `S`, `D` and the mouse to look around.
 | `+` | Toggle orbit distance (only while orbiting) |
 | `R` | Take a screenshot (only works when a `ScreenCapturer` actor is present in the scene) |
 
+<br>
+<br>
 
+## Citation
+
+If you find this work useful for your research or use parts of the implementation, please cite our paper:
+
+```
+@misc{batik2026chronofusegsmultitemporalgaussianfusion,
+      title={ChronoFuseGS: Multi-Temporal Gaussian Fusion with Per-Splat Persistence and Change Visualization}, 
+      author={Tobias Batik and Diana Marin and Peter Kán and Hannes Kaufmann},
+      year={2026},
+      eprint={2609.31339},
+      archivePrefix={arXiv},
+      primaryClass={cs.GR},
+      url={https://arxiv.org/abs/2609.31339}, 
+}
+```
